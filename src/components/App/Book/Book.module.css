@@ -1,0 +1,11 @@
+.title {
+  background-color: aquamarine;
+  text-align: center;
+}
+.item {
+  padding: 12px 16px;
+  font-size: 30px;
+  background-color: gray;
+  border-radius: 4px;
+  color: white;
+}
