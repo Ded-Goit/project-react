@@ -1,6 +1,7 @@
 import Product from "../Product/Product";
 import Mailbox from "../Mailbox/Mailbox";
 import Book from "./Book/Book";
+import Button from "../Button/Button";
 
 export default function App() {
   return (
@@ -22,6 +23,10 @@ export default function App() {
         username="John"
         messages={["Welcome!", "Don't miss our sale!"]}
       />
+
+      <Button variant="primary" text="Login" />
+      <Button variant="secondary" text="Follow" />
+
       <Book />
     </>
   );
