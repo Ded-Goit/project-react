@@ -5,6 +5,7 @@ import Button from "../Button/Button";
 // 1. Імпортуємо функцію useState
 import { useState } from "react";
 import ClickCounter from "../ClickCounter/ClickCounter";
+import ClickCounterTogether from "../ClickCounterTogether/ClickCounterTogether";
 
 export default function App() {
   /* const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -44,6 +45,8 @@ export default function App() {
       <button onClick={handleClick}>Current: {clicks}</button>
       <ClickCounter />
       <ClickCounter />
+      <ClickCounterTogether value={clicks} onUpdate={handleClick} />
+      <ClickCounterTogether value={clicks} onUpdate={handleClick} />
       <Book />
     </>
   );
