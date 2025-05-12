@@ -6,6 +6,7 @@ import Button from "../Button/Button";
 import { useState } from "react";
 import ClickCounter from "../ClickCounter/ClickCounter";
 import ClickCounterTogether from "../ClickCounterTogether/ClickCounterTogether";
+import Several from "../Several/Several";
 
 export default function App() {
   /* const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -47,6 +48,7 @@ export default function App() {
       <ClickCounter />
       <ClickCounterTogether value={clicks} onUpdate={handleClick} />
       <ClickCounterTogether value={clicks} onUpdate={handleClick} />
+      <Several />
       <Book />
     </>
   );
