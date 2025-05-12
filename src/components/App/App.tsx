@@ -1,9 +1,10 @@
 import Product from "../Product/Product";
 import Mailbox from "../Mailbox/Mailbox";
-import Book from "./Book/Book";
+import Book from "../Book/Book";
 import Button from "../Button/Button";
 // 1. Імпортуємо функцію useState
 import { useState } from "react";
+import ClickCounter from "../ClickCounter/ClickCounter";
 
 export default function App() {
   /* const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -41,6 +42,8 @@ export default function App() {
       <Button variant="secondary" text="Follow" />
       <button onClick={handleClick}>Click me!</button>
       <button onClick={handleClick}>Current: {clicks}</button>
+      <ClickCounter />
+      <ClickCounter />
       <Book />
     </>
   );
