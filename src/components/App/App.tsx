@@ -7,6 +7,7 @@ import { useState } from "react";
 import ClickCounter from "../ClickCounter/ClickCounter";
 import ClickCounterTogether from "../ClickCounterTogether/ClickCounterTogether";
 import Several from "../Several/Several";
+import UserMenu from "../UserMenu/UserMenu";
 
 export default function App() {
   /* const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,8 +23,7 @@ export default function App() {
   };
   return (
     <>
-      <h1>Products</h1>
-
+      <h1>Products</h1> <UserMenu name="GoMortarBoard" />
       <Product
         name="Tacos With Lime"
         imgUrl="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=640"
@@ -34,12 +34,10 @@ export default function App() {
         imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=640"
         price={14.29}
       />
-
       <Mailbox
         username="John"
         messages={["Welcome!", "Don't miss our sale!"]}
       />
-
       <Button variant="primary" text="Login" />
       <Button variant="secondary" text="Follow" />
       <button onClick={handleClick}>Click me!</button>
