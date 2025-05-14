@@ -8,8 +8,12 @@ import ClickCounter from "../ClickCounter/ClickCounter";
 import ClickCounterTogether from "../ClickCounterTogether/ClickCounterTogether";
 import Several from "../Several/Several";
 import UserMenu from "../UserMenu/UserMenu";
+import OrderForm from "../../OrderForm/OrderForm";
 
 export default function App() {
+  const handleOrder = (data: string) => {
+    console.log("Order reseived from:", data); // можна зберегти замовлення, викликати API, показати повідомлення тощо
+  };
   /* const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log("Clicked!", event);
     console.log("Target:", event.target); // сам <button>
@@ -24,6 +28,7 @@ export default function App() {
   return (
     <>
       <h1>Products</h1> <UserMenu name="GoMortarBoard" />
+      <OrderForm onSubmit={handleOrder} />
       <Product
         name="Tacos With Lime"
         imgUrl="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=640"
