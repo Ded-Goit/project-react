@@ -23,6 +23,7 @@ interface ArticlesHttpResponse {
 }
 
 export default function App() {
+  const [articles, setArticles] = useState<Article[]>([]);
   const handleOrder = (data: string) => {
     console.log("Order reseived from:", data); // можна зберегти замовлення, викликати API, показати повідомлення тощо
   };
@@ -31,7 +32,7 @@ export default function App() {
     const response = await axios.get<ArticlesHttpResponse>(
       `https://hn.algolia.com/api/v1/search?query=${topic}`
     );
-    console.log(response.data); // об'єкт з властивістю hits
+    setArticles(response.data.hits);
   };
   /* const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     console.log("Clicked!", event);
@@ -54,6 +55,18 @@ export default function App() {
         price={10.99}
       />
       <SearchForm onSubmit={handleSearch} />
+      {articles.length > 0 && (
+        <ul>
+          {articles.map(({ objectID, url, title }) => (
+            <li key={objectID}>
+              {" "}
+              <a href={url} target="_blank">
+                {title}
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
       <Product
         name="Fries and Burger"
         imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=640"
