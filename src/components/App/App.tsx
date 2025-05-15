@@ -11,24 +11,19 @@ import UserMenu from "../UserMenu/UserMenu";
 import OrderForm from "../OrderForm/OrderForm";
 import axios from "axios";
 import SearchForm from "../SearchForm/SearchForm";
-
-interface Article {
-  objectID: string;
-  title: string;
-  url: string;
-}
+import type { Article } from "../../types/article";
+import ArticleList from "../ArticleList/ArticleList";
 
 interface ArticlesHttpResponse {
   hits: Article[];
 }
-
 export default function App() {
-  const [articles, setArticles] = useState<Article[]>([]);
   const handleOrder = (data: string) => {
     console.log("Order reseived from:", data); // можна зберегти замовлення, викликати API, показати повідомлення тощо
   };
+  const [articles, setArticles] = useState<Article[]>([]);
+
   const handleSearch = async (topic: string) => {
-    // Виконуємо HTTP-запит
     const response = await axios.get<ArticlesHttpResponse>(
       `https://hn.algolia.com/api/v1/search?query=${topic}`
     );
@@ -55,18 +50,7 @@ export default function App() {
         price={10.99}
       />
       <SearchForm onSubmit={handleSearch} />
-      {articles.length > 0 && (
-        <ul>
-          {articles.map(({ objectID, url, title }) => (
-            <li key={objectID}>
-              {" "}
-              <a href={url} target="_blank">
-                {title}
-              </a>
-            </li>
-          ))}
-        </ul>
-      )}
+      {articles.length > 0 && <ArticleList items={articles} />}
       <Product
         name="Fries and Burger"
         imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=640"
