@@ -2,7 +2,6 @@ import Product from "../Product/Product";
 import Mailbox from "../Mailbox/Mailbox";
 import Book from "../Book/Book";
 import Button from "../Button/Button";
-// 1. Імпортуємо функцію useState
 import { useState } from "react";
 import ClickCounter from "../ClickCounter/ClickCounter";
 import ClickCounterTogether from "../ClickCounterTogether/ClickCounterTogether";
@@ -13,6 +12,7 @@ import axios from "axios";
 import SearchForm from "../SearchForm/SearchForm";
 import type { Article } from "../../types/article";
 import ArticleList from "../ArticleList/ArticleList";
+import { ClipLoader } from "react-spinners";
 
 interface ArticlesHttpResponse {
   hits: Article[];
@@ -23,16 +23,16 @@ export default function App() {
   };
   const [articles, setArticles] = useState<Article[]>([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleSearch = async (topic: string) => {
+    setIsLoading(true);
     const response = await axios.get<ArticlesHttpResponse>(
       `https://hn.algolia.com/api/v1/search?query=${topic}`
     );
+    setIsLoading(false);
     setArticles(response.data.hits);
   };
-  /* const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log("Clicked!", event);
-    console.log("Target:", event.target); // сам <button>
-  };*/
   // 2. Оголошуємо стан clicks
   const [clicks, setClicks] = useState(0);
 
@@ -50,6 +50,18 @@ export default function App() {
         price={10.99}
       />
       <SearchForm onSubmit={handleSearch} />
+      {/* indicator zagruzki */}
+      {isLoading && (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "20px 0",
+          }}
+        >
+          <ClipLoader size={50} color="#36d7b7" />
+        </div>
+      )}
       {articles.length > 0 && <ArticleList items={articles} />}
       <Product
         name="Fries and Burger"
