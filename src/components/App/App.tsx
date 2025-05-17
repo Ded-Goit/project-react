@@ -8,34 +8,27 @@ import ClickCounterTogether from "../ClickCounterTogether/ClickCounterTogether";
 import Several from "../Several/Several";
 import UserMenu from "../UserMenu/UserMenu";
 import OrderForm from "../OrderForm/OrderForm";
-import axios from "axios";
 import SearchForm from "../SearchForm/SearchForm";
 import type { Article } from "../../types/article";
 import ArticleList from "../ArticleList/ArticleList";
 import { ClipLoader } from "react-spinners";
+import { fetchArticles } from "../../services/articleService";
 
-interface ArticlesHttpResponse {
-  hits: Article[];
-}
 export default function App() {
   const handleOrder = (data: string) => {
     console.log("Order reseived from:", data); // можна зберегти замовлення, викликати API, показати повідомлення тощо
   };
   const [articles, setArticles] = useState<Article[]>([]);
-
   const [isLoading, setIsLoading] = useState(false);
-  // 1. Оголошуємо стан
   const [isError, setIsError] = useState(false);
 
   const handleSearch = async (topic: string) => {
     try {
       setIsLoading(true);
       setIsError(false);
-      const response = await axios.get<ArticlesHttpResponse>(
-        `https://hn.algolia.com/api/v1/search?query=${topic}`
-      );
-
-      setArticles(response.data.hits);
+      // 2. Використовуємо HTTP-функцію
+      const data = await fetchArticles(topic);
+      setArticles(data);
     } catch {
       setIsError(true);
     } finally {
