@@ -24,14 +24,23 @@ export default function App() {
   const [articles, setArticles] = useState<Article[]>([]);
 
   const [isLoading, setIsLoading] = useState(false);
+  // 1. Оголошуємо стан
+  const [isError, setIsError] = useState(false);
 
   const handleSearch = async (topic: string) => {
-    setIsLoading(true);
-    const response = await axios.get<ArticlesHttpResponse>(
-      `https://hn.algolia.com/api/v1/search?query=${topic}`
-    );
-    setIsLoading(false);
-    setArticles(response.data.hits);
+    try {
+      setIsLoading(true);
+      setIsError(false);
+      const response = await axios.get<ArticlesHttpResponse>(
+        `https://hn.algolia.com/api/v1/search?query=${topic}`
+      );
+
+      setArticles(response.data.hits);
+    } catch {
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
   };
   // 2. Оголошуємо стан clicks
   const [clicks, setClicks] = useState(0);
@@ -62,6 +71,7 @@ export default function App() {
           <ClipLoader size={50} color="#36d7b7" />
         </div>
       )}
+      {isError && <p>Whoops, something went wrong Please try again!</p>}
       {articles.length > 0 && <ArticleList items={articles} />}
       <Product
         name="Fries and Burger"
