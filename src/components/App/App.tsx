@@ -7,7 +7,7 @@ import ClickCounter from "../ClickCounter/ClickCounter";
 import ClickCounterTogether from "../ClickCounterTogether/ClickCounterTogether";
 import Several from "../Several/Several";
 import UserMenu from "../UserMenu/UserMenu";
-import OrderForm from "../OrderForm/OrderForm";
+import OrderBilliForm from "../OrderBilliForm/OrderBilliForm";
 import SearchForm from "../SearchForm/SearchForm";
 import type { Article } from "../../types/article";
 import ArticleList from "../ArticleList/ArticleList";
@@ -46,11 +46,20 @@ export default function App() {
   return (
     <>
       <h1>Products</h1> <UserMenu name="GoMortarBoard" />
-      <OrderForm onSubmit={handleOrder} />
       <Product
         name="Tacos With Lime"
         imgUrl="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=640"
         price={10.99}
+      />
+      <Product
+        name="Fries and Burger"
+        imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=640"
+        price={14.29}
+      />
+      <OrderBilliForm onSubmit={handleOrder} />
+      <Mailbox
+        username="John"
+        messages={["Welcome!", "Don't miss our sale!"]}
       />
       <SearchForm onSubmit={handleSearch} />
       {/* indicator zagruzki */}
@@ -67,15 +76,6 @@ export default function App() {
       )}
       {isError && <p>Whoops, something went wrong Please try again!</p>}
       {articles.length > 0 && <ArticleList items={articles} />}
-      <Product
-        name="Fries and Burger"
-        imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=640"
-        price={14.29}
-      />
-      <Mailbox
-        username="John"
-        messages={["Welcome!", "Don't miss our sale!"]}
-      />
       <Button variant="primary" text="Login" />
       <Button variant="secondary" text="Follow" />
       <button onClick={handleClick}>Click me!</button>
