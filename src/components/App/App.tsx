@@ -15,8 +15,11 @@ import { ClipLoader } from "react-spinners";
 import { fetchArticles } from "../../services/articleService";
 //const myKey = import.meta.env.VITE_API_KEY;
 import OrderForm from "../OrderForm/OrderForm";
+import Timer from "../Timer/Timer";
 
 export default function App() {
+  const [isOpen, setIsOpen] = useState(false);
+
   const handleOrder = (data: string) => {
     console.log("Order reseived from:", data); // можна зберегти замовлення, викликати API, показати повідомлення тощо
   };
@@ -46,6 +49,10 @@ export default function App() {
   };
   return (
     <>
+      <button onClick={() => setIsOpen(!isOpen)}>
+        {isOpen ? "Hide timer" : "Show timer"}
+      </button>
+      {isOpen && <Timer />}
       <div>
         <h1>Products</h1> <UserMenu name="GoMortarBoard" />
         <Product
