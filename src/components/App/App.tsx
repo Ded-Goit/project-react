@@ -13,6 +13,7 @@ import type { Article } from "../../types/article";
 import ArticleList from "../ArticleList/ArticleList";
 import { ClipLoader } from "react-spinners";
 import { fetchArticles } from "../../services/articleService";
+//const myKey = import.meta.env.VITE_API_KEY;
 
 export default function App() {
   const handleOrder = (data: string) => {
