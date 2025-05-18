@@ -16,9 +16,16 @@ import { fetchArticles } from "../../services/articleService";
 //const myKey = import.meta.env.VITE_API_KEY;
 import OrderForm from "../OrderForm/OrderForm";
 import Timer from "../Timer/Timer";
+import Modal from "../Modal/Modal";
 
 export default function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [isOpen, setIsOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+
+  const closeModal = () => setIsModalOpen(false);
 
   const handleOrder = (data: string) => {
     console.log("Order reseived from:", data); // можна зберегти замовлення, викликати API, показати повідомлення тощо
@@ -49,6 +56,11 @@ export default function App() {
   };
   return (
     <>
+      <div>
+        <h1>Main content of the page</h1>
+        <button onClick={openModal}>Open Modal</button>
+        {isModalOpen && <Modal onClose={closeModal} />}
+      </div>
       <button onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? "Hide timer" : "Show timer"}
       </button>
