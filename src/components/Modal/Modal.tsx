@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import css from "./Modal.module.css";
+import { useEffect } from "react";
 
 interface ModalProps {
   onClose: () => void;
@@ -11,6 +12,18 @@ export default function Modal({ onClose }: ModalProps) {
       onClose();
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [onClose]);
 
   return createPortal(
     <div
