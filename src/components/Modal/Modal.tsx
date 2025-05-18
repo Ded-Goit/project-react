@@ -4,15 +4,17 @@ import { useEffect } from "react";
 
 interface ModalProps {
   onClose: () => void;
+  //Add the Props "children" and type it
+  children: React.ReactNode;
 }
 
-export default function Modal({ onClose }: ModalProps) {
+export default function Modal({ onClose, children }: ModalProps) {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
       onClose();
     }
   };
-
+  //closing modal on keypress
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -20,8 +22,12 @@ export default function Modal({ onClose }: ModalProps) {
       }
     };
     document.addEventListener("keydown", handleKeyDown);
+    //Background scrolling prohibition
+    document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
+      //Background scrolling prohibition
+      document.body.style.overflow = "";
     };
   }, [onClose]);
 
@@ -40,8 +46,7 @@ export default function Modal({ onClose }: ModalProps) {
         >
           &times;
         </button>
-        <h2>Modal Title</h2>
-        <p>This is some content inside the modal</p>
+        {children}
       </div>
     </div>,
     document.body

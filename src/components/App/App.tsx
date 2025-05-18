@@ -59,7 +59,12 @@ export default function App() {
       <div>
         <h1>Main content of the page</h1>
         <button onClick={openModal}>Open Modal</button>
-        {isModalOpen && <Modal onClose={closeModal} />}
+        {isModalOpen && (
+          <Modal onClose={closeModal}>
+            <h2>Custom Modal Content</h2>
+            <p>This is a reusable modal with dynamic content.</p>
+          </Modal>
+        )}
       </div>
       <button onClick={() => setIsOpen(!isOpen)}>
         {isOpen ? "Hide timer" : "Show timer"}
