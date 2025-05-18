@@ -14,6 +14,7 @@ import ArticleList from "../ArticleList/ArticleList";
 import { ClipLoader } from "react-spinners";
 import { fetchArticles } from "../../services/articleService";
 //const myKey = import.meta.env.VITE_API_KEY;
+import OrderForm from "../OrderForm/OrderForm";
 
 export default function App() {
   const handleOrder = (data: string) => {
@@ -45,17 +46,20 @@ export default function App() {
   };
   return (
     <>
-      <h1>Products</h1> <UserMenu name="GoMortarBoard" />
-      <Product
-        name="Tacos With Lime"
-        imgUrl="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=640"
-        price={10.99}
-      />
-      <Product
-        name="Fries and Burger"
-        imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=640"
-        price={14.29}
-      />
+      <div>
+        <h1>Products</h1> <UserMenu name="GoMortarBoard" />
+        <Product
+          name="Tacos With Lime"
+          imgUrl="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?w=640"
+          price={10.99}
+        />
+        <Product
+          name="Fries and Burger"
+          imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?w=640"
+          price={14.29}
+        />
+        <OrderForm />
+      </div>
       <OrderBilliForm onSubmit={handleOrder} />
       <Mailbox
         username="John"
