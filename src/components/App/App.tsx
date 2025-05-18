@@ -2,7 +2,7 @@ import Product from "../Product/Product";
 import Mailbox from "../Mailbox/Mailbox";
 import Book from "../Book/Book";
 import Button from "../Button/Button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ClickCounter from "../ClickCounter/ClickCounter";
 import ClickCounterTogether from "../ClickCounterTogether/ClickCounterTogether";
 import Several from "../Several/Several";
@@ -48,7 +48,17 @@ export default function App() {
     }
   };
   // 2. Оголошуємо стан clicks
-  const [clicks, setClicks] = useState(0);
+  const [clicks, setClicks] = useState(() => {
+    const savedClicks = localStorage.getItem("saved-clicks");
+    if (savedClicks !== null) {
+      return JSON.parse(savedClicks);
+    }
+    return 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("saved-clicks", JSON.stringify(clicks));
+  }, [clicks]);
 
   const handleClick = () => {
     // 3. Використовуємо setClicks для зміни стану clicks
@@ -112,6 +122,10 @@ export default function App() {
       <ClickCounter />
       <ClickCounterTogether value={clicks} onUpdate={handleClick} />
       <ClickCounterTogether value={clicks} onUpdate={handleClick} />
+      <button onClick={() => setClicks(clicks + 1)}>
+        You clicked {clicks} times
+      </button>
+      <button onClick={() => setClicks(0)}>Reset</button>
       <Several />
       <Book />
     </>
