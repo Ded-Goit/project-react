@@ -64,6 +64,21 @@ export default function App() {
     // 3. Використовуємо setClicks для зміни стану clicks
     setClicks(clicks + 1);
   };
+  const [first, setFirst] = useState(0);
+  const [second, setSecond] = useState(0);
+
+  useEffect(() => {
+    console.log("First updated:", first);
+  }, [first]);
+
+  useEffect(() => {
+    console.log("Second updated:", second);
+  }, [second]);
+
+  useEffect(() => {
+    console.log("First or second updated:", first + second);
+  }, [first, second]);
+
   return (
     <>
       <div>
@@ -126,6 +141,8 @@ export default function App() {
         You clicked {clicks} times
       </button>
       <button onClick={() => setClicks(0)}>Reset</button>
+      <button onClick={() => setFirst(first + 1)}>First: {first}</button>
+      <button onClick={() => setSecond(second + 1)}>Second: {second}</button>
       <Several />
       <Book />
     </>
