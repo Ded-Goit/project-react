@@ -17,8 +17,25 @@ import { fetchArticles } from "../../services/articleService";
 import OrderForm from "../OrderForm/OrderForm";
 import Timer from "../Timer/Timer";
 import Modal from "../Modal/Modal";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+
+const fetchPerson = async () => {
+  const response = await axios.get("https://swapi.info/api/people/1");
+  return response.data;
+};
 
 export default function App() {
+  const {
+    data,
+    error,
+    isLoading: isQueryLoading,
+    isError: isQueryError,
+  } = useQuery({
+    queryKey: ["person"],
+    queryFn: () => fetchPerson(),
+  });
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -81,6 +98,9 @@ export default function App() {
 
   return (
     <>
+      {isQueryLoading && <p>Loading...</p>}
+      {isQueryError && <p>An error occurred: {error.message}</p>}
+      {data && <pre>{JSON.stringify(data, null, 2)}</pre>}
       <div>
         <h1>Main content of the page</h1>
         <button onClick={openModal}>Open Modal</button>
